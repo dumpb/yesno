@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Stars</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            background-color: #000;
+            overflow: hidden;
+            position: relative;
+            transition: background-color 0.5s ease-in-out;
+        }
+
+        @keyframes twinkle {
+            0% {
+                opacity: 0.8;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.5);
+            }
+            100% {
+                opacity: 0.8;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: scale(0);
+            }
+            100% {
+                opacity: 0.8;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes fadeOut {
+            0% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: scale(0);
+            }
+        }
+
+        .star {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: transparent;
+            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+            animation: twinkle 3s infinite ease-in-out, fadeIn 1s forwards;
+            opacity: 0.8;
+            transition: all 1s ease-in-out;
+        }
+
+        .star1 { background-color: #FF5733; }
+        .star2 { background-color: #33FF57; }
+        .star3 { background-color: #3357FF; }
+        .star4 { background-color: #F0E130; }
+        .star5 { background-color: #D52D6E; }
+        .star6 { background-color: #9C5E1E; }
+        .star7 { background-color: #4A89DC; }
+        .star8 { background-color: #16D69D; }
+        .star9 { background-color: #D16DC6; }
+        .star10 { background-color: #FF4500; }
+        
+    .thank-you {
+      display: inline-block;
+      overflow: hidden;
+      white-space: nowrap;
+      border-right: 3px solid black; /* Cursor effect */
+      animation: typing 3s steps(20) 1s forwards;
+    }
+    </style>
+</head>
+<body>
+
+    <script>
+        function createStar() {
+            const star = document.createElement('div');
+            star.classList.add('star', 'star' + (Math.floor(Math.random() * 10) + 1));
+            const size = Math.random() * 5 + 5;
+            star.style.width = `${size}px`;
+            star.style.height = `${size}px`;
+            star.style.top = Math.random() * 100 + '%';
+            star.style.left = Math.random() * 100 + '%';
+            document.body.appendChild(star);
+
+            function moveStar() {
+                setTimeout(() => {
+                    star.style.animation = "fadeOut 1s forwards";
+
+                    setTimeout(() => {
+                        star.remove();
+                        createStar();
+                    }, 1000);
+                }, 3000);
+            }
+
+            moveStar();
+        }
+
+        // Create 100 stars
+        for (let i = 0; i < 100; i++) {
+            createStar();
+        }
+    </script>
+<script>
+    window.onload = function() {
+        alert("OMG thank you so much!");
+    };
+    </script>
+</body>
+</html>

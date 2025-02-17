@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hi!</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            position: relative;
+            background-color: #f0f0f0;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        #image {
+            position: absolute;
+            top: 20px;
+            width: 100px;
+            height: auto;
+            transition: transform 0.3s ease-out;
+        }
+        .button-container {
+            display: flex;
+            gap: 20px;
+        }
+        .button {
+            padding: 15px 30px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+            border-radius: 10px;
+        }
+        .button:focus {
+            outline: none;
+        }
+        #noButton {
+            position: relative;
+            transition: transform 0.3s ease-out;
+        }
+
+        .switch {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            gap: 10px;
+        }
+        .switch input {
+            display: none;
+        }
+        .slider {
+            width: 40px;
+            height: 20px;
+            background-color: #ccc;
+            border-radius: 50px;
+            position: relative;
+            transition: background-color 0.3s;
+        }
+        .slider::before {
+            content: '';
+            position: absolute;
+            left: 4px;
+            top: 4px;
+            width: 12px;
+            height: 12px;
+            background-color: white;
+            border-radius: 50%;
+            transition: transform 0.3s;
+        }
+        input:checked + .slider {
+            background-color: #4CAF50;
+        }
+        input:checked + .slider::before {
+            transform: translateX(20px);
+        }
+
+        .mode-text {
+            font-size: 12px;
+            color: #333;
+        }
+
+        .light {
+            background-color: #f0f0f0;
+            color: #000;
+        }
+        .dark {
+            background-color: #121212;
+            color: #fff;
+        }
+
+        .valentine-text {
+            font-family: 'Georgia', serif;
+            font-size: 24px;
+            margin-top: 50px;
+            text-align: center;
+            color: #333;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        .dark .valentine-text {
+            color: white;
+        }
+    </style>
+</head>
+<body class="light">
+
+    <img id="image" src="cat.jpg" alt="Image">
+
+    <div class="valentine-text" style="position: absolute;top: 30%;">
+        Would you be my Valentine?
+    </div>
+
+    <div class="button-container">
+        <button class="button" id="yesButton">Yes</button>
+        <button class="button" id="noButton" style="background-color: rgb(158, 60, 60);">No</button>
+    </div>
+
+    <!-- Light/Dark Mode Toggle Switch with Text -->
+    <label class="switch">
+        <span class="mode-text">Light</span>
+        <input type="checkbox" id="modeToggle" onclick="toggleMode()">
+        <span class="slider"></span>
+        <span class="mode-text">Dark</span>
+    </label>
+
+    <script>
+        const noButton = document.getElementById('noButton');
+        const yesButton = document.getElementById('yesButton');
+        const image = document.getElementById('image');
+        const modeToggle = document.getElementById('modeToggle');
+        const body = document.body;
+
+        // no button movment position
+        function moveButtonRandomly() {
+            const randomX = (Math.random() - 0.5) * 400;
+            const randomY = (Math.random() - 0.5) * 400;
+            noButton.style.transform = `translate(${randomX}px, ${randomY}px)`;
+        }
+
+        noButton.addEventListener('mouseenter', moveButtonRandomly);
+
+        // redirect to the seocond page
+        yesButton.addEventListener('click', () => {
+            window.location.href = 'refirectifyes.html';
+        });
+
+        function moveImage() {
+            const currentTop = parseFloat(window.getComputedStyle(image).top);
+            image.style.transform = `translateY(${currentTop + 188}px)`;
+        }
+        image.addEventListener('click', moveImage);
+
+        function toggleMode() {
+            body.classList.toggle('light');
+            body.classList.toggle('dark');
+            modeToggle.checked = body.classList.contains('dark');
+        }
+    </script>
+
+</body>
+</html>
